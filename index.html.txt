@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>USCIS 100 Questions – California 2025 Flashcards</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #111827;
+      background: #f3f4f6;
+    }
+    body {
+      margin: 0;
+      padding: 1.5rem;
+      background: #f3f4f6;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 0.2rem;
+      font-size: 2rem;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+    .controls {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 700px) {
+      .controls {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .field-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+      color: #374151;
+    }
+    input[type="text"], select {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+      background: #ffffff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 2px rgba(79,70,229,0.2);
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+    }
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: #4f46e5;
+      color: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    }
+    .btn.secondary {
+      background: #e5e7eb;
+      color: #111827;
+      box-shadow: none;
+    }
+    .btn-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      border-radius: 999px;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid #d1d5db;
+      background: #ffffff;
+      cursor: pointer;
+      font-size: 0.78rem;
+    }
+    .btn-toggle.active {
+      border-color: #4f46e5;
+      color: #1d4ed8;
+    }
+    .cards {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.75rem;
+    }
+    @media (min-width: 900px) {
+      .cards {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 1rem;
+      padding: 0.75rem 0.9rem;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 1px 3px rgba(15,23,42,0.06);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .q-meta {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #6b7280;
+      margin-bottom: 0.15rem;
+    }
+    .q-text {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #111827;
+    }
+    .card-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      background: #4f46e5;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .card-btn.hide {
+      background: #059669;
+    }
+    .answer {
+      margin-top: 0.55rem;
+      border-radius: 0.75rem;
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+      padding: 0.5rem 0.7rem;
+      font-size: 0.85rem;
+      color: #111827;
+    }
+    .answer.hidden {
+      display: none;
+    }
+    .footer-note {
+      margin-top: 1.25rem;
+      font-size: 0.75rem;
+      color: #6b7280;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>USCIS 100 Questions – Flashcards</h1>
+    <p class="subtitle">
+      California answers, updated to 2025. Click a card to show or hide the short answer.
+    </p>
+
+    <div class="controls">
+      <div>
+        <div class="field-label">Search (question or answer)</div>
+        <input id="searchInput" type="text" placeholder="Type a keyword… (e.g., president, amendment, river)" />
+      </div>
+      <div>
+        <div class="field-label">Filter by topic</div>
+        <select id="sectionSelect">
+          <option value="all">All topics</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <button id="shuffleBtn" class="btn-toggle" type="button">Shuffle</button>
+      <button id="revealAllBtn" class="btn secondary" type="button">Reveal all</button>
+      <button id="hideAllBtn" class="btn secondary" type="button">Hide all</button>
+      <button id="resetBtn" class="btn secondary" type="button">Reset filters</button>
+    </div>
+
+    <ul id="cards" class="cards"></ul>
+
+    <p class="footer-note">
+      The officer will ask up to 10 questions. You need 6 correct to pass. Short, clear answers are enough.
+    </p>
+  </div>
+
+  <script>
+    const QUESTIONS = [
+      // PRINCIPLES OF AMERICAN DEMOCRACY
+      {n:1, s:"Principles of American Democracy", q:"What is the supreme law of the land?", a:"The Constitution."},
+      {n:2, s:"Principles of American Democracy", q:"What does the Constitution do?", a:"Sets up and defines the government; protects basic rights."},
+      {n:3, s:"Principles of American Democracy", q:"The idea of self-government is in the first three words of the Constitution. What are these words?", a:"\"We the People.\""},
+      {n:4, s:"Principles of American Democracy", q:"What is an amendment?", a:"A change or addition to the Constitution."},
+      {n:5, s:"Principles of American Democracy", q:"What do we call the first ten amendments to the Constitution?", a:"The Bill of Rights."},
+      {n:6, s:"Principles of American Democracy", q:"What is one right or freedom from the First Amendment?", a:"For example: speech, religion, press, assembly, petition."},
+      {n:7, s:"Principles of American Democracy", q:"How many amendments does the Constitution have?", a:"27."},
+      {n:8, s:"Principles of American Democracy", q:"What did the Declaration of Independence do?", a:"Declared our independence from Great Britain."},
+      {n:9, s:"Principles of American Democracy", q:"What are two rights in the Declaration of Independence?", a:"Life, liberty, and the pursuit of happiness."},
+      {n:10, s:"Principles of American Democracy", q:"What is freedom of religion?", a:"You can practice any religion, or no religion."},
+      {n:11, s:"Principles of American Democracy", q:"What is the economic system in the United States?", a:"Capitalist or market economy."},
+      {n:12, s:"Principles of American Democracy", q:"What is the rule of law?", a:"Everyone must follow the law; no one is above the law."},
+
+      // SYSTEM OF GOVERNMENT
+      {n:13, s:"System of Government", q:"Name one branch or part of the government.", a:"Congress, President, or the courts."},
+      {n:14, s:"System of Government", q:"What stops one branch of government from becoming too powerful?", a:"Checks and balances; separation of powers."},
+      {n:15, s:"System of Government", q:"Who is in charge of the executive branch?", a:"The President."},
+      {n:16, s:"System of Government", q:"Who makes federal laws?", a:"Congress (Senate and House of Representatives)."},
+      {n:17, s:"System of Government", q:"What are the two parts of the U.S. Congress?", a:"The Senate and House of Representatives."},
+      {n:18, s:"System of Government", q:"How many U.S. Senators are there?", a:"100."},
+      {n:19, s:"System of Government", q:"We elect a U.S. Senator for how many years?", a:"6 years."},
+      {n:20, s:"System of Government", q:"Who is one of your state’s U.S. Senators now? (California)", a:"Alex Padilla or Adam Schiff."},
+      {n:21, s:"System of Government", q:"The House of Representatives has how many voting members?", a:"435."},
+      {n:22, s:"System of Government", q:"We elect a U.S. Representative for how many years?", a:"2 years."},
+      {n:23, s:"System of Government", q:"Name your U.S. Representative (Orange County, CA).", a:"Depends on your district, for example Dave Min or Derek Tran."},
+      {n:24, s:"System of Government", q:"Who does a U.S. Senator represent?", a:"All people of the state."},
+      {n:25, s:"System of Government", q:"Why do some states have more Representatives than other states?", a:"Because of the state’s population."},
+      {n:26, s:"System of Government", q:"We elect a President for how many years?", a:"4 years."},
+      {n:27, s:"System of Government", q:"In what month do we vote for President?", a:"November."},
+      {n:28, s:"System of Government", q:"What is the name of the President of the United States now?", a:"Donald J. Trump."},
+      {n:29, s:"System of Government", q:"What is the name of the Vice President of the United States now?", a:"J.D. Vance."},
+      {n:30, s:"System of Government", q:"If the President can no longer serve, who becomes President?", a:"The Vice President."},
+      {n:31, s:"System of Government", q:"If both the President and the Vice President can no longer serve, who becomes President?", a:"The Speaker of the House."},
+      {n:32, s:"System of Government", q:"Who is the Commander in Chief of the military?", a:"The President."},
+      {n:33, s:"System of Government", q:"Who signs bills to become laws?", a:"The President."},
+      {n:34, s:"System of Government", q:"Who vetoes bills?", a:"The President."},
+      {n:35, s:"System of Government", q:"What does the President’s Cabinet do?", a:"Advises the President."},
+      {n:36, s:"System of Government", q:"What are two Cabinet-level positions?", a:"For example: Secretary of State, Secretary of Defense."},
+      {n:37, s:"System of Government", q:"What does the judicial branch do?", a:"Reviews laws and explains laws; resolves disputes."},
+      {n:38, s:"System of Government", q:"What is the highest court in the United States?", a:"The Supreme Court."},
+      {n:39, s:"System of Government", q:"How many justices are on the Supreme Court?", a:"9."},
+      {n:40, s:"System of Government", q:"Who is the Chief Justice of the United States now?", a:"John Roberts."},
+      {n:41, s:"System of Government", q:"Under our Constitution, some powers belong to the federal government. Name one power of the federal government.", a:"To print money, declare war, create an army, or make treaties."},
+      {n:42, s:"System of Government", q:"Under our Constitution, some powers belong to the states. Name one power of the states.", a:"Provide schooling, protection (police), safety (fire), or driver’s licenses."},
+      {n:43, s:"System of Government", q:"Who is the Governor of your state now? (California)", a:"Gavin Newsom."},
+      {n:44, s:"System of Government", q:"What is the capital of your state? (California)", a:"Sacramento."},
+      {n:45, s:"System of Government", q:"What are the two major political parties in the United States?", a:"Democratic and Republican."},
+      {n:46, s:"System of Government", q:"What is the political party of the President now?", a:"Republican Party."},
+      {n:47, s:"System of Government", q:"What is the name of the Speaker of the House of Representatives now?", a:"Mike Johnson."},
+
+      // RIGHTS AND RESPONSIBILITIES
+      {n:48, s:"Rights and Responsibilities", q:"There are four amendments to the Constitution about who can vote. Describe one of them.", a:"Citizens 18 and older can vote; no poll tax; any citizen can vote; men of any race can vote."},
+      {n:49, s:"Rights and Responsibilities", q:"What is one responsibility that is only for United States citizens?", a:"Serve on a jury or vote in a federal election."},
+      {n:50, s:"Rights and Responsibilities", q:"Name one right only for United States citizens.", a:"Vote in a federal election or run for federal office."},
+      {n:51, s:"Rights and Responsibilities", q:"Name two rights of everyone living in the United States.", a:"Freedom of speech and freedom of religion (others: assembly, petition, press, bear arms)."},
+      {n:52, s:"Rights and Responsibilities", q:"What do we show loyalty to when we say the Pledge of Allegiance?", a:"The United States and the flag."},
+      {n:53, s:"Rights and Responsibilities", q:"What is one promise you make when you become a United States citizen?", a:"Obey the laws and be loyal to the United States."},
+      {n:54, s:"Rights and Responsibilities", q:"How old do citizens have to be to vote for President?", a:"18 or older."},
+      {n:55, s:"Rights and Responsibilities", q:"What are two ways that Americans can participate in their democracy?", a:"Vote, join a political party, contact officials, or run for office."},
+      {n:56, s:"Rights and Responsibilities", q:"When is the last day you can send in federal income tax forms?", a:"April 15."},
+      {n:57, s:"Rights and Responsibilities", q:"When must all men register for the Selective Service?", a:"At age 18; between 18 and 26."},
+
+      // COLONIAL & INDEPENDENCE
+      {n:58, s:"Colonial Period & Independence", q:"What is one reason colonists came to America?", a:"Freedom, political liberty, religious freedom, or economic opportunity."},
+      {n:59, s:"Colonial Period & Independence", q:"Who lived in America before the Europeans arrived?", a:"American Indians / Native Americans."},
+      {n:60, s:"Colonial Period & Independence", q:"What group of people was taken to America and sold as slaves?", a:"Africans."},
+      {n:61, s:"Colonial Period & Independence", q:"Why did the colonists fight the British?", a:"Because of high taxes and no self-government."},
+      {n:62, s:"Colonial Period & Independence", q:"Who wrote the Declaration of Independence?", a:"Thomas Jefferson."},
+      {n:63, s:"Colonial Period & Independence", q:"When was the Declaration of Independence adopted?", a:"July 4, 1776."},
+      {n:64, s:"Colonial Period & Independence", q:"There were 13 original states. Name three.", a:"New York, Virginia, and Georgia (any three of the 13)."},
+      {n:65, s:"Colonial Period & Independence", q:"What happened at the Constitutional Convention?", a:"The Constitution was written."},
+      {n:66, s:"Colonial Period & Independence", q:"When was the Constitution written?", a:"1787."},
+      {n:67, s:"Colonial Period & Independence", q:"The Federalist Papers supported the passage of the U.S. Constitution. Name one writer.", a:"James Madison, Alexander Hamilton, or John Jay."},
+      {n:68, s:"Colonial Period & Independence", q:"What is one thing Benjamin Franklin is famous for?", a:"U.S. diplomat; first Postmaster General; started the first free libraries."},
+      {n:69, s:"Colonial Period & Independence", q:"Who is the \"Father of Our Country\"?", a:"George Washington."},
+      {n:70, s:"Colonial Period & Independence", q:"Who was the first President?", a:"George Washington."},
+
+      // 1800s
+      {n:71, s:"1800s", q:"What territory did the United States buy from France in 1803?", a:"The Louisiana Territory (Louisiana Purchase)."},
+      {n:72, s:"1800s", q:"Name one war fought by the United States in the 1800s.", a:"The Civil War (also War of 1812, Mexican-American War, Spanish-American War)."},
+      {n:73, s:"1800s", q:"Name the U.S. war between the North and the South.", a:"The Civil War."},
+      {n:74, s:"1800s", q:"Name one problem that led to the Civil War.", a:"Slavery, economic differences, or states’ rights."},
+      {n:75, s:"1800s", q:"What was one important thing that Abraham Lincoln did?", a:"Freed the slaves; preserved the Union; led the U.S. during the Civil War."},
+      {n:76, s:"1800s", q:"What did the Emancipation Proclamation do?", a:"Freed slaves in the Confederate states."},
+      {n:77, s:"1800s", q:"What did Susan B. Anthony do?", a:"Fought for women’s rights and civil rights."},
+
+      // 1900s & RECENT HISTORY
+      {n:78, s:"1900s & Recent History", q:"Name one war fought by the United States in the 1900s.", a:"World War I, World War II, Korean War, Vietnam War, or Gulf War."},
+      {n:79, s:"1900s & Recent History", q:"Who was President during World War I?", a:"Woodrow Wilson."},
+      {n:80, s:"1900s & Recent History", q:"Who was President during the Great Depression and World War II?", a:"Franklin D. Roosevelt."},
+      {n:81, s:"1900s & Recent History", q:"Who did the United States fight in World War II?", a:"Germany, Japan, and Italy."},
+      {n:82, s:"1900s & Recent History", q:"Before he was President, Eisenhower was a general. In which war?", a:"World War II."},
+      {n:83, s:"1900s & Recent History", q:"During the Cold War, what was the main concern of the United States?", a:"Communism."},
+      {n:84, s:"1900s & Recent History", q:"What movement tried to end racial discrimination?", a:"The Civil Rights Movement."},
+      {n:85, s:"1900s & Recent History", q:"What did Martin Luther King, Jr. do?", a:"Fought for civil rights and equality for all Americans."},
+      {n:86, s:"1900s & Recent History", q:"What major event happened on September 11, 2001, in the United States?", a:"Terrorists attacked the United States."},
+      {n:87, s:"1900s & Recent History", q:"Name one American Indian tribe in the United States.", a:"For example: Cherokee, Navajo, Sioux, or Apache."},
+
+      // GEOGRAPHY
+      {n:88, s:"Geography", q:"Name one of the two longest rivers in the United States.", a:"The Mississippi River or the Missouri River."},
+      {n:89, s:"Geography", q:"What ocean is on the West Coast of the United States?", a:"The Pacific Ocean."},
+      {n:90, s:"Geography", q:"What ocean is on the East Coast of the United States?", a:"The Atlantic Ocean."},
+      {n:91, s:"Geography", q:"Name one U.S. territory.", a:"Puerto Rico, U.S. Virgin Islands, Guam, American Samoa, or Northern Mariana Islands."},
+      {n:92, s:"Geography", q:"Name one state that borders Canada.", a:"For example: Washington, New York, or Alaska."},
+      {n:93, s:"Geography", q:"Name one state that borders Mexico.", a:"California, Arizona, New Mexico, or Texas."},
+      {n:94, s:"Geography", q:"What is the capital of the United States?", a:"Washington, D.C."},
+      {n:95, s:"Geography", q:"Where is the Statue of Liberty?", a:"In New York Harbor (New York)."},      
+
+      // SYMBOLS & HOLIDAYS
+      {n:96, s:"Symbols & Holidays", q:"Why does the flag have 13 stripes?", a:"Because there were 13 original colonies."},
+      {n:97, s:"Symbols & Holidays", q:"Why does the flag have 50 stars?", a:"Because there are 50 states."},
+      {n:98, s:"Symbols & Holidays", q:"What is the name of the national anthem?", a:"\"The Star-Spangled Banner.\""},
+      {n:99, s:"Symbols & Holidays", q:"When do we celebrate Independence Day?", a:"July 4."},
+      {n:100,s:"Symbols & Holidays", q:"Name two national U.S. holidays.", a:"For example: Independence Day and Thanksgiving."}
+    ];
+
+    const cardsEl = document.getElementById("cards");
+    const searchInput = document.getElementById("searchInput");
+    const sectionSelect = document.getElementById("sectionSelect");
+    const shuffleBtn = document.getElementById("shuffleBtn");
+    const revealAllBtn = document.getElementById("revealAllBtn");
+    const hideAllBtn = document.getElementById("hideAllBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    // fill section dropdown
+    const sections = Array.from(new Set(QUESTIONS.map(q => q.s)));
+    sections.forEach(sec => {
+      const opt = document.createElement("option");
+      opt.value = sec;
+      opt.textContent = sec;
+      sectionSelect.appendChild(opt);
+    });
+
+    let current = [...QUESTIONS];
+
+    function render() {
+      const query = searchInput.value.toLowerCase().trim();
+      const section = sectionSelect.value;
+      cardsEl.innerHTML = "";
+      current.forEach(item => {
+        if (section !== "all" && item.s !== section) return;
+        if (
+          query &&
+          !item.q.toLowerCase().includes(query) &&
+          !item.a.toLowerCase().includes(query)
+        ) return;
+
+        const li = document.createElement("li");
+        li.className = "card";
+
+        const header = document.createElement("div");
+        header.className = "q-header";
+
+        const textBox = document.createElement("div");
+        const meta = document.createElement("div");
+        meta.className = "q-meta";
+        meta.textContent = `${item.s}`;
+        const qtext = document.createElement("div");
+        qtext.className = "q-text";
+        qtext.textContent = item.n + ". " + item.q;
+        textBox.appendChild(meta);
+        textBox.appendChild(qtext);
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "card-btn";
+        btn.textContent = "Show answer";
+
+        header.appendChild(textBox);
+        header.appendChild(btn);
+
+        const ans = document.createElement("div");
+        ans.className = "answer hidden";
+        ans.textContent = item.a;
+
+        btn.addEventListener("click", () => {
+          const hidden = ans.classList.contains("hidden");
+          ans.classList.toggle("hidden", !hidden);
+          btn.textContent = hidden ? "Hide answer" : "Show answer";
+          btn.classList.toggle("hide", hidden);
+        });
+
+        li.appendChild(header);
+        li.appendChild(ans);
+        cardsEl.appendChild(li);
+      });
+    }
+
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+    }
+
+    searchInput.addEventListener("input", render);
+    sectionSelect.addEventListener("change", render);
+
+    shuffleBtn.addEventListener("click", () => {
+      shuffleArray(current);
+      shuffleBtn.classList.toggle("active");
+      render();
+    });
+
+    revealAllBtn.addEventListener("click", () => {
+      document.querySelectorAll(".card .answer").forEach(a => a.classList.remove("hidden"));
+      document.querySelectorAll(".card .card-btn").forEach(b => {
+        b.textContent = "Hide answer";
+        b.classList.add("hide");
+      });
+    });
+
+    hideAllBtn.addEventListener("click", () => {
+      document.querySelectorAll(".card .answer").forEach(a => a.classList.add("hidden"));
+      document.querySelectorAll(".card .card-btn").forEach(b => {
+        b.textContent = "Show answer";
+        b.classList.remove("hide");
+      });
+    });
+
+    resetBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      sectionSelect.value = "all";
+      current = [...QUESTIONS];
+      shuffleBtn.classList.remove("active");
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
