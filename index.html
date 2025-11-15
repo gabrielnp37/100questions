@@ -196,11 +196,12 @@
     </div>
 
     <div class="toolbar">
+      <button id="randomBtn" class="btn" type="button">Random question</button>
       <button id="shuffleBtn" class="btn-toggle" type="button">Shuffle</button>
       <button id="revealAllBtn" class="btn secondary" type="button">Reveal all</button>
       <button id="hideAllBtn" class="btn secondary" type="button">Hide all</button>
       <button id="resetBtn" class="btn secondary" type="button">Reset filters</button>
-    </div>
+</div>
 
     <ul id="cards" class="cards"></ul>
 
@@ -335,6 +336,7 @@
     const revealAllBtn = document.getElementById("revealAllBtn");
     const hideAllBtn = document.getElementById("hideAllBtn");
     const resetBtn = document.getElementById("resetBtn");
+    const randomBtn = document.getElementById("randomBtn");
 
     // fill section dropdown
     const sections = Array.from(new Set(QUESTIONS.map(q => q.s)));
@@ -406,6 +408,15 @@
         [arr[i], arr[j]] = [arr[j], arr[i]];
       }
     }
+
+randomBtn.addEventListener("click", () => {
+  const idx = Math.floor(Math.random() * QUESTIONS.length);
+  const item = QUESTIONS[idx];
+  alert(
+    "Q" + item.n + ": " + item.q + "\n\n" +
+    "Answer: " + item.a
+  );
+});
 
     searchInput.addEventListener("input", render);
     sectionSelect.addEventListener("change", render);
